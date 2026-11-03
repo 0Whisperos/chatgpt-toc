@@ -12,5 +12,7 @@ for (const [name, entry] of [['bridge', 'src/bridge.ts'], ['content', 'src/conte
 }
 await mkdir('dist', { recursive: true });
 await copyFile('manifest.json', 'dist/manifest.json');
+await copyFile('README.md', 'dist/README.md');
+await copyFile('README.en.md', 'dist/README.en.md');
 await copyFile('README.md', 'dist/安装说明.md');
 await copyFile('VALIDATION.md', 'dist/验证记录.md');

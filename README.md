@@ -1,16 +1,30 @@
 # ChatGPT 对话目录
 
-一个本地 Chrome 扩展，为 ChatGPT 网页添加右侧提问目录。默认显示短横线，悬停展开摘要；点击提问跳转，随阅读位置高亮。支持长目录虚拟渲染、深浅主题、键盘导航、历史扫描和会话切换。
+[简体中文](README.md) | [English](README.en.md)
+
+为 ChatGPT 网页添加右侧提问目录的浏览器扩展，适用于 Chrome 和基于 Chromium 的 Edge。默认显示短横线，悬停展开摘要；点击提问跳转，随阅读位置高亮。支持长目录虚拟渲染、深浅主题、键盘导航、历史扫描和会话切换。
+
+**[下载最新安装包](https://github.com/0Whisperos/chatgpt-toc/releases/latest/download/chatgpt-toc-navigator.zip)** · [查看所有版本](https://github.com/0Whisperos/chatgpt-toc/releases)
+
+## 功能
+
+- **提问目录**：按当前对话顺序列出用户提问，悬停展开，点击跳转。
+- **阅读位置高亮**：随页面滚动标记当前提问，阅读回答时保持对应提问高亮。
+- **长对话导航**：目录按可视区域渲染，支持加载尚未渲染的历史消息和扫描补全。
+- **自动更新**：新提问和会话切换时自动刷新目录，只展示当前分支。
+- **本地处理**：支持深浅主题、折叠和键盘操作，聊天内容仅在浏览器内处理。
 
 ## 安装
 
-1. 解压 `chatgpt-toc-navigator.zip`，找到其中的 `dist` 文件夹。直接使用项目时，使用项目根目录中的 `dist`。
-2. 在 Chrome 地址栏打开 `chrome://extensions`。
-3. 开启右上角“开发者模式”。
-4. 点击“加载已解压的扩展程序”，选择 **包含 manifest.json 的 dist 文件夹**。
+1. [下载最新安装包](https://github.com/0Whisperos/chatgpt-toc/releases/latest/download/chatgpt-toc-navigator.zip)，解压 `chatgpt-toc-navigator.zip`，找到其中的 `dist` 文件夹。
+2. 在浏览器地址栏打开扩展管理页：Chrome 使用 `chrome://extensions`，Edge 使用 `edge://extensions`。
+3. 开启“开发者模式”（Edge 中称为“开发人员模式”）。
+4. 点击“加载已解压的扩展程序”或“加载解压缩的扩展”，选择 **包含 `manifest.json` 的 `dist` 文件夹**。
 5. 刷新已经打开的 ChatGPT 页面，或者打开一个已有会话。扩展仅在 `https://chatgpt.com/` 生效。
 
-请保留安装文件夹。更新代码后重新运行构建，在扩展管理页点击扩展的刷新按钮，再刷新 ChatGPT 页面。
+请保留安装文件夹。更新时，将新版安装包解压到同一个安装位置，在扩展管理页点击扩展的刷新按钮，再刷新 ChatGPT 页面。
+
+GitHub Releases 中自动提供的 **Source code (zip / tar.gz)** 是源码快照，不含构建后的 `dist`。直接安装请选择 **`chatgpt-toc-navigator.zip`**；如果下载的是源码，请先按下方开发说明生成 `dist`。
 
 ## 使用
 
@@ -35,6 +49,8 @@ DOM 兼容新版 `data-user-message-bubble` / `data-chatgpt-search-message-ids` 
 
 首版支持普通 `/c/{id}` 及项目中的会话路径；新会话先从页面提问建立临时目录。没有提问的首页隐藏目录。不覆盖其他聊天网站、共享只读页面或桌面客户端。
 
+扩展界面目前使用中文。自动化浏览器测试在 Chrome 中执行；Edge 在代码层面兼容，仍需实际加载确认。测试详情见 [验证记录](https://github.com/0Whisperos/chatgpt-toc/blob/main/VALIDATION.md)。
+
 ## 隐私与权限
 
 - 仅匹配 `https://chatgpt.com/*`，使用 Manifest V3。
@@ -45,11 +61,18 @@ DOM 兼容新版 `data-user-message-bubble` / `data-chatgpt-search-message-ids` 
 
 ## 开发
 
-需要 Node.js 20.19+ 或 22.12+。
+需要 Node.js 20.19+ 或 22.12+。首次获取项目时：
 
 ```powershell
-npm install
+git clone https://github.com/0Whisperos/chatgpt-toc.git
+cd chatgpt-toc
+npm ci
 npm run build
+```
+
+构建完成后，按安装步骤加载项目根目录中的 `dist`。其他常用命令：
+
+```powershell
 npm test
 npm run test:e2e
 npm run test:extension
